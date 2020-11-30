@@ -2,9 +2,9 @@
   "name": "jwt-app",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "start": "nodemon index.js",
+    "start": "nodemon server.js",
     "heroku-postbuild": "NPM_CONFIG_PRODCUTION=false npm install --prefix client"
   },
   "author": "",

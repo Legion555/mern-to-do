@@ -1,10 +1,27 @@
-@import url("https://fonts.googleapis.com/css2?family=Open+Sans&family=Raleway&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Raleway&display=swap');
+// VARIABLES
+// Media Queries
+$mobile: 480px;
+$tablet: 768px;
+//Fonts
+$primary-font: 'Raleway', sans-serif;
+$secondary-font: 'Open Sans', sans-serif;
+//Colors
+$color-dark: #282C34;
+$color-light: #F6F6F6;
+$color-accent: 	#dda932;
+//Box Shadow
+$shadow-main: 0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+0 6.7px 5.3px rgba(0, 0, 0, 0.048),
+0 12.5px 10px rgba(0, 0, 0, 0.06),
+0 22.3px 17.9px rgba(0, 0, 0, 0.072),
+0 41.8px 33.4px rgba(0, 0, 0, 0.086),
+0 100px 80px rgba(0, 0, 0, 0.12);
+
+
 * {
-  margin: 0;
-  padding: 0;
-  outline: 0;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  margin: 0; padding: 0;
+  outline: 0; box-sizing: border-box;
 }
 
 body {
@@ -17,179 +34,135 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: "Raleway", sans-serif;
+  font-family: $primary-font;
 }
-
 p, button, span, a {
-  font-family: "Open Sans", sans-serif;
+  font-family: $secondary-font;
 }
-
 a {
   color: black;
   text-decoration: none;
 }
 
 .app {
-  width: 100%;
-  height: 100vh;
+  width: 100%; height: 100vh;
 }
 
 .login-container {
   padding: 10px;
   position: absolute;
-  right: 0;
-  top: 0;
-  background: #F6F6F6;
-}
-
-.login-container input {
-  display: block;
-  margin: 5px 0;
-}
-
-.login-container button {
-  display: block;
-  margin: 5px 0;
+  right: 0; top: 0;
+  background: $color-light;
+  input {
+    display: block;
+    margin: 5px 0;
+  }
+  button {
+    display: block;
+    margin: 5px 0;
+  }
 }
 
 .content-container {
-  width: 500px;
-  height: 500px;
-  margin: auto;
-  margin-top: 200px;
+  width: 500px; height: 500px;
+  margin: auto; margin-top: 200px;
   border-radius: 25px;
-  background: #F6F6F6;
-  -webkit-box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034), 0 6.7px 5.3px rgba(0, 0, 0, 0.048), 0 12.5px 10px rgba(0, 0, 0, 0.06), 0 22.3px 17.9px rgba(0, 0, 0, 0.072), 0 41.8px 33.4px rgba(0, 0, 0, 0.086), 0 100px 80px rgba(0, 0, 0, 0.12);
-          box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034), 0 6.7px 5.3px rgba(0, 0, 0, 0.048), 0 12.5px 10px rgba(0, 0, 0, 0.06), 0 22.3px 17.9px rgba(0, 0, 0, 0.072), 0 41.8px 33.4px rgba(0, 0, 0, 0.086), 0 100px 80px rgba(0, 0, 0, 0.12);
+  background: $color-light;
+  box-shadow: $shadow-main;
   overflow-y: auto;
+  //HEADING
+  .heading {
+    width: 100%;
+    border-radius: 25px 25px 0 0;
+    background: $color-dark;
+    color: $color-light;
+    .task {
+      text-align: center;
+    }
+  }
+  //ADD TASK
+  .add-task-main {
+    width: 250px; margin: auto;
+      
+    .input {
+      width: 100%; height: 30px;
+      margin: 10px auto;
+      padding: 5px;
+      border: 2px solid $color-dark;
+      border-radius: 5px;
+    }
+    .button {
+      display: block;
+      margin: auto;
+      padding: 5px;
+      font-size: 16px;
+      border: 2px solid $color-dark;
+      border-radius: 10px;
+      &:hover {
+        background: $color-accent;
+      }
+    }
+  }
+  //CONTENT
+  .content {
+    padding: 10px 25px;
+    //Checklist item
+    .item {
+      margin-bottom: 10px;
+      .task-main-container {
+        display: flex; justify-content: space-between;
+        .task-main {
+          font-size: 20px;
+        }
+      }
+      .task-complete {
+        opacity: 0.25;
+      }
+      .task-sub-container {
+        padding-left: 25px;
+        .task-sub {
+          display: flex; justify-content: space-between;
+        }
+        .task-complete {
+          opacity: 0.25;
+        }
+      }
+    }
+    button {
+      width: 25px; height: 25px;
+      border: none;
+      background: none;
+      opacity: 0.5;
+      &:hover {
+        opacity: 1;
+      }
+      .icon-add-task {
+        color: green;
+      }
+      .icon-edit-task {
+        color: orange;
+      }
+      .icon-cancel {
+        color: red;
+      }
+      .icon-delete-task {
+        color: red;
+      }
+      .icon-checkmark {
+        color: green;
+      }
+      .icon-incomplete {
+        font-size: 20px;
+        position: relative; top: 5px;
+        opacity: 0.5;
+        &:hover {
+          opacity: 1;
+        }
+      }
+      .icon-completed {
+        font-size: 20px;
+        position: relative; top: 5px;
+      }
+    }
+  }
 }
-
-.content-container .heading {
-  width: 100%;
-  border-radius: 25px 25px 0 0;
-  background: #282C34;
-  color: #F6F6F6;
-}
-
-.content-container .heading .task {
-  text-align: center;
-}
-
-.content-container .add-task-main {
-  width: 250px;
-  margin: auto;
-}
-
-.content-container .add-task-main .input {
-  width: 100%;
-  height: 30px;
-  margin: 10px auto;
-  padding: 5px;
-  border: 2px solid #282C34;
-  border-radius: 5px;
-}
-
-.content-container .add-task-main .button {
-  display: block;
-  margin: auto;
-  padding: 5px;
-  font-size: 16px;
-  border: 2px solid #282C34;
-  border-radius: 10px;
-}
-
-.content-container .add-task-main .button:hover {
-  background: #dda932;
-}
-
-.content-container .content {
-  padding: 10px 25px;
-}
-
-.content-container .content .item {
-  margin-bottom: 10px;
-}
-
-.content-container .content .item .task-main-container {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-}
-
-.content-container .content .item .task-main-container .task-main {
-  font-size: 20px;
-}
-
-.content-container .content .item .task-complete {
-  opacity: 0.25;
-}
-
-.content-container .content .item .task-sub-container {
-  padding-left: 25px;
-}
-
-.content-container .content .item .task-sub-container .task-sub {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-}
-
-.content-container .content .item .task-sub-container .task-complete {
-  opacity: 0.25;
-}
-
-.content-container .content button {
-  width: 25px;
-  height: 25px;
-  border: none;
-  background: none;
-  opacity: 0.5;
-}
-
-.content-container .content button:hover {
-  opacity: 1;
-}
-
-.content-container .content button .icon-add-task {
-  color: green;
-}
-
-.content-container .content button .icon-edit-task {
-  color: orange;
-}
-
-.content-container .content button .icon-cancel {
-  color: red;
-}
-
-.content-container .content button .icon-delete-task {
-  color: red;
-}
-
-.content-container .content button .icon-checkmark {
-  color: green;
-}
-
-.content-container .content button .icon-incomplete {
-  font-size: 20px;
-  position: relative;
-  top: 5px;
-  opacity: 0.5;
-}
-
-.content-container .content button .icon-incomplete:hover {
-  opacity: 1;
-}
-
-.content-container .content button .icon-completed {
-  font-size: 20px;
-  position: relative;
-  top: 5px;
-}
-/*# sourceMappingURL=App.css.map */

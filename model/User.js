@@ -16,6 +16,10 @@ const userSchema = new mongoose.Schema({
     date: {
         type: Date,
         default: Date.now
+    },
+    taskList : {
+        type: Array,
+        required: false
     }
 });
 

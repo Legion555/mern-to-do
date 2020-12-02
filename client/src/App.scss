@@ -48,20 +48,48 @@ a {
   width: 100%; height: 100vh;
 }
 
-.login-container {
-  padding: 10px;
+.auth-container {
+  width: 300px;
   position: absolute;
-  right: 0; top: 0;
-  background: $color-light;
-  input {
-    display: block;
-    margin: 5px 0;
+  top: 0; left: calc(50vw - 150px);
+  background: $color-dark;
+  .auth-selector {
+    text-align: center;
+    button {
+      margin: 5px 10px;
+      padding: 5px;
+    }
   }
-  button {
-    display: block;
-    margin: 5px 0;
+  .login-container {
+    padding: 10px;
+    background: $color-light;
+    input {
+      display: block;
+      margin: 5px 0;
+    }
+    button {
+      display: block;
+      margin: 5px 0;
+    }
+  }
+  .register-container {
+    padding: 10px;
+    background: $color-light;
+    input {
+      display: block;
+      margin: 5px 0;
+    }
+    button {
+      display: block;
+      margin: 5px 0;
+    }
+  }
+  .loggedIn-container, .registered-container {
+    background: $color-light;
+    text-align: center;
   }
 }
+
 
 .content-container {
   width: 500px; height: 500px;
@@ -74,94 +102,90 @@ a {
   .heading {
     width: 100%;
     border-radius: 25px 25px 0 0;
+    text-align: center;
     background: $color-dark;
     color: $color-light;
     .task {
       text-align: center;
     }
   }
-  //ADD TASK
-  .add-task-main {
-    width: 250px; margin: auto;
-      
-    .input {
-      width: 100%; height: 30px;
-      margin: 10px auto;
-      padding: 5px;
-      border: 2px solid $color-dark;
-      border-radius: 5px;
-    }
-    .button {
-      display: block;
-      margin: auto;
-      padding: 5px;
-      font-size: 16px;
-      border: 2px solid $color-dark;
-      border-radius: 10px;
-      &:hover {
-        background: $color-accent;
-      }
-    }
-  }
   //CONTENT
   .content {
-    padding: 10px 25px;
-    //Checklist item
-    .item {
-      margin-bottom: 10px;
-      .task-main-container {
-        display: flex; justify-content: space-between;
-        .task-main {
-          font-size: 20px;
+    //Add task
+    .add-task-main {
+      border-bottom: 2px solid black;
+      input, button {
+        display: block;
+        margin: auto;
+      }
+      input {
+        width: 250px; height: 30px;
+        margin: 10px auto;
+        padding: 5px;
+        border: 2px solid $color-dark;
+        border-radius: 5px;
+      }
+      button {
+        width: auto;
+        margin-bottom: 10px;
+        padding: 0 10px;
+        font-size: 16px;
+        border: 2px solid $color-dark;
+        border-radius: 10px;
+        &:hover {
+          background: $color-accent;
         }
       }
-      .task-complete {
-        opacity: 0.25;
-      }
-      .task-sub-container {
-        padding-left: 25px;
-        .task-sub {
+    }
+    .task-container {
+      padding: 10px;
+      .item {
+        margin-bottom: 10px;
+        .task-main-container {
           display: flex; justify-content: space-between;
+          .task-main {
+            font-size: 20px;
+          }
         }
         .task-complete {
           opacity: 0.25;
         }
       }
-    }
-    button {
-      width: 25px; height: 25px;
-      border: none;
-      background: none;
-      opacity: 0.5;
-      &:hover {
-        opacity: 1;
-      }
-      .icon-add-task {
-        color: green;
-      }
-      .icon-edit-task {
-        color: orange;
-      }
-      .icon-cancel {
-        color: red;
-      }
-      .icon-delete-task {
-        color: red;
-      }
-      .icon-checkmark {
-        color: green;
-      }
-      .icon-incomplete {
-        font-size: 20px;
-        position: relative; top: 5px;
+      button {
+        width: 25px; height: 25px;
+        border: none;
+        background: none;
         opacity: 0.5;
         &:hover {
           opacity: 1;
         }
-      }
-      .icon-completed {
-        font-size: 20px;
-        position: relative; top: 5px;
+        .icon-add-task {
+          color: green;
+        }
+        .icon-edit-task {
+          color: orange;
+        }
+        .icon-cancel {
+          color: red;
+        }
+        .icon-delete-task {
+          color: red;
+        }
+        .icon-checkmark {
+          color: green;
+        }
+        .icon-incomplete {
+          font-size: 20px;
+          position: relative; top: 5px;
+          opacity: 0.5;
+          &:hover {
+            opacity: 1;
+          }
+        }
+        .icon-completed {
+          font-size: 20px;
+          position: relative; top: 5px;
+        }
       }
     }
   }

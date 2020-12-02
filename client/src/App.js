@@ -3,8 +3,9 @@ import './App.css';
 import axios from 'axios';
 
 function App() {
-  const [userData, setUserData] = useState({name: 'bill', age: '12'});
+  const [userData, setUserData] = useState({});
   const [renderCounter, setRenderCounter] = useState(0);
+  const [authView, setAuthView] = useState('');
   //login
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -59,6 +60,7 @@ function App() {
     axios.post('/api/user/login', details)
     .then(function (response) {
       getId(response.headers["auth-token"]);
+      setAuthView('loggedIn');
     })
   }
   //Register new user
@@ -69,32 +71,32 @@ function App() {
       email: regEmail,
       password: regPassword
     }
-    axios.post('/api/user/register', payload);
-  }
-
-
-  const toggleView = () => {
-    console.log(userData);  
+    axios.post('/api/user/register', payload)
+    .then(function (response) {
+      setAuthView('registered');
+    })
   }
   //Add task to taskList object in user document
   const addTask = (e, id) => {
     e.preventDefault();
+    if (taskTitle.length > 0) {
     const newUserData = userData;
     const taskData = {
       "taskTitle": taskTitle,
       "taskDesc": taskDesc,
       "id": numGen()
     }
-    newUserData.taskList.push(taskData);
-    setUserData(newUserData);
-    axios.put("/api/posts/change", userData)
-    .then((res) => {
-      console.log(res.data);
-      setRenderCounter(renderCounter + 1);      
-    })
-    .catch((err) => {
-      console.log(err);
-    })
+      newUserData.taskList.push(taskData);
+      setUserData(newUserData);
+      axios.put("/api/posts/change", userData)
+      .then((res) => {
+        console.log(res.data);
+        setRenderCounter(renderCounter + 1);      
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+    }
   }
   //Remove task from taskList
   const removeTask = (userId, taskId) => {
@@ -104,52 +106,73 @@ function App() {
     setUserData(newUserData);
     axios.put("/api/posts/removeTask", userData)
     .then((res) => {
-      console.log(res.data);      
+      console.log(res.data);
+      setRenderCounter(renderCounter + 1);
     })
     .catch((err) => {
       console.log(err);
     })
   }
 
+  //Other functions
+  const capitalizeFirstLetter = (string) => {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+
   return (
     <div className="app">
       {/* LOGIN */}
-      <div className="login-container">
-        <form className="input-main">
-          <input onChange={(e) => setEmail(e.target.value)} placeholder="email..." name="email" value={email}></input>
-          <input onChange={(e) => setPassword(e.target.value)} placeholder="password..." name="password" value={password}></input>
-          <button onClick={login} className="button">Login</button>
-        </form>
+      <div className="auth-container">
+        {authView !== 'loggedIn' && <div className="auth-selector">
+          <button onClick={() => setAuthView('login')}>Login</button>
+          {authView !== 'registered' && <button onClick={() => setAuthView('register')}>Register</button>}
+          {(authView === ('login' || 'registered')) && <div className="login-container">
+            <form className="input-main">
+              <input onChange={(e) => setEmail(e.target.value)} placeholder="email..." name="email" value={email}></input>
+              <input onChange={(e) => setPassword(e.target.value)} placeholder="password..." name="password" value={password}></input>
+              <button onClick={login}>Login</button>
+            </form>
+          </div>}
+          {/* REGISTER */}
+          {(authView === 'register') && <div className="register-container">
+            <form className="input-main">
+              <input onChange={(e) => setRegName(e.target.value)} placeholder="name..." name="name" value={regName}></input>
+              <input onChange={(e) => setRegEmail(e.target.value)} placeholder="email..." name="email" value={regEmail}></input>
+              <input onChange={(e) => setRegPassword(e.target.value)} placeholder="password..." name="password" value={regPassword}></input>
+              <button onClick={register}>Register</button>
+            </form>
+          </div>}
+        </div>}
+        {(authView === 'loggedIn') && <div className="loggedIn-container">
+          <p>Successfully logged in.</p>
+        </div>}
+        {(authView === 'registered') && <div className="registered-container">
+          <p>Successfully registered.<br/>Please log in.</p>
+        </div>}
       </div>
-      {/* REGISTER */}
-      <div className="register-container">
-        <form className="input-main">
-          <input onChange={(e) => setRegName(e.target.value)} placeholder="name..." name="name" value={regName}></input>
-          <input onChange={(e) => setRegEmail(e.target.value)} placeholder="email..." name="email" value={regEmail}></input>
-          <input onChange={(e) => setRegPassword(e.target.value)} placeholder="password..." name="password" value={regPassword}></input>
-          <button onClick={register} className="button">Register</button>
-        </form>
-      </div>
+      
       {/* CONTENT */}
       <div className="content-container">
         <div className="heading">
           <h1>Task List</h1>
+          <p>Welcome {('name' in userData) ? capitalizeFirstLetter(userData.name) : 'Guest. Please login or register.'}</p>
         </div>
-        <div className="content">
-          <form className="input-main">
+        {('taskList' in userData) && <div className="content">
+          <form className="add-task-main">
             <input onChange={(e) => setTaskTitle(e.target.value)} placeholder="task..." name="task" value={taskTitle}></input>
             <input onChange={(e) => setTaskDesc(e.target.value)} placeholder="desc..." name="desc" value={taskDesc}></input>
             <button onClick={(e, ) => addTask(e, userData._id)} className="button">Add task</button>
           </form>
-          <h1>{userData.name}</h1>
-          {('taskList' in userData) && userData.taskList.map(task =>
-            <div>
-              <p>{task.taskTitle}</p>
-              <button onClick={() => removeTask(userData._id, task.id)}>Remove</button>
-            </div>  
-          )}
-        </div>
-        <button onClick={toggleView}>View data</button>
+          <div className="task-container">
+            {userData.taskList.map(task =>
+              <div>
+                <p>{task.taskTitle}</p>
+                <button onClick={() => removeTask(userData._id, task.id)}>Remove</button>
+              </div>
+            )}
+          </div>
+        </div>}
+        {/* <button onClick={toggleView}>View data</button> */}
       </div>
     </div>
   );

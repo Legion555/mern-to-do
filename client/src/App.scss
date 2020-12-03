@@ -45,7 +45,7 @@ a {
 }
 
 .app {
-  width: 100%; height: 100vh;
+  width: 100%;
 }
 
 .auth-container {
@@ -98,6 +98,10 @@ a {
   background: $color-light;
   box-shadow: $shadow-main;
   overflow-y: auto;
+  @media all and (max-width: $mobile) {
+    width: 100%;
+    margin-top: 50px;
+  }
   //HEADING
   .heading {
     width: 100%;
@@ -139,16 +143,9 @@ a {
     }
     .task-container {
       padding: 10px;
-      .item {
-        margin-bottom: 10px;
-        .task-main-container {
-          display: flex; justify-content: space-between;
-          .task-main {
-            font-size: 20px;
-          }
-        }
-        .task-complete {
-          opacity: 0.25;
+      .task {
+        button {
+          color: red;
         }
       }
       button {

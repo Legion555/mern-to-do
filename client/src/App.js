@@ -91,7 +91,8 @@ function App() {
       axios.put("/api/posts/change", userData)
       .then((res) => {
         console.log(res.data);
-        setRenderCounter(renderCounter + 1);      
+        setTaskTitle('');
+        setTaskDesc('');
       })
       .catch((err) => {
         console.log(err);
@@ -165,8 +166,9 @@ function App() {
           </form>
           <div className="task-container">
             {userData.taskList.map(task =>
-              <div>
-                <p>{task.taskTitle}</p>
+              <div className="task">
+                <h3>{task.taskTitle}</h3>
+                <p>{task.taskDesc}</p>
                 <button onClick={() => removeTask(userData._id, task.id)}>Remove</button>
               </div>
             )}

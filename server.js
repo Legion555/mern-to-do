@@ -11,7 +11,8 @@ dotenv.config();
 
 mongoose.connect(process.env.MONGODB_URI,
     { useNewUrlParser: true, useUnifiedTopology: true },
-    () => console.log("Connected to DB"))
+    () => console.log("Connected to DB")
+)
 
 //Import routes
 const authRoute = require('./routes/auth');
